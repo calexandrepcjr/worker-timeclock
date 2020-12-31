@@ -16,9 +16,7 @@ static void list_commands(int argc, char *argv[]) {
   }
 
   if (is_help) {
-    for (int i = 0; i < NELEMS(available_commands); ++i) {
-      puts(available_commands[i]);
-    }
+    arr_puts(available_commands, ARR_SIZEOF(available_commands));
   }
 }
 
