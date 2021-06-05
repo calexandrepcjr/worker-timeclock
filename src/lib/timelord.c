@@ -1,33 +1,34 @@
 #include "timelord.h"
 
-char* current_date() {
+static char* get_time(char* format, int expected_size) {
     time_t current_time = time(NULL);
 
     if (current_time != (time_t)(-1)) {
-        static int expected_size = 12;
         struct tm tm = *localtime(&current_time);
-        char *current_date = (char*)malloc(expected_size * sizeof(char));
-        
-        snprintf(current_date, expected_size, "%04d-%02d-%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
+        char *current_time_structure = create_string(expected_size);
 
-        return current_date;
+        switch (expected_size) {
+            case 11:
+                // It's a year
+                snprintf(current_time_structure, expected_size, format, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
+            break;
+
+            default:
+                snprintf(current_time_structure, expected_size, format, tm.tm_hour, tm.tm_min, tm.tm_sec);
+            break;
+        }
+
+        return current_time_structure;
     }
 
-    return "0000-00-00";
+    return "-1";
+}
+
+char* current_date() {
+    return get_time("%04d-%02d-%02d", 11);
 }
 
 char* current_hours() {
-    time_t current_time = time(NULL);
-
-    if (current_time != (time_t)(-1)) {
-        static int expected_size = 9;
-        struct tm tm = *localtime(&current_time);
-        char *current_hours = (char*)malloc(expected_size * sizeof(char));
-        
-        snprintf(current_hours, expected_size, "%02d:%02d:%02d", tm.tm_hour, tm.tm_min, tm.tm_sec);
-
-        return current_hours;
-    }
-
-    return "99:99:99";
+    return get_time("%02d:%02d:%02d", 9);
 }
+

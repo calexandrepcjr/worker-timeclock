@@ -6,4 +6,6 @@
     #include <string.h>
 
     int str_is_equal(const char *a_string, const char *another_string);
+
+    char* create_string(int expected_size);
 #endif /* STRING_DOT_H */

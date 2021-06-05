@@ -6,6 +6,7 @@
     #include <time.h>
     #include <stdint.h>
     #include <stdlib.h>
+    #include "string.h"
 
     // In the Y-m-d format
     char* current_date();
