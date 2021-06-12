@@ -9,23 +9,24 @@ const static char *available_commands[] = {
     "-b/--balance - shows the total of worked hours"
     };
 
-static void list_commands(int argc, char *argv[]) {
-  const int is_help =
-      str_is_equal(argv[1], "-h") || str_is_equal(argv[1], "--help");
+static int is_command(char *arg, char *simplified_command, char *complete_command) {
+    return str_is_equal(arg, simplified_command) || str_is_equal(arg, complete_command);
+}
 
+static void list_commands(int argc, char *argv[]) {
   if (argc == 1) {
     puts(more_info);
 
     return;
   }
 
-  if (is_help) {
+  if (is_command(argv[1], "-h", "--help")) {
     arr_puts(available_commands, ARR_SIZEOF(available_commands));
 
     return;
   }
 
-  if (str_is_equal(argv[1], "-r") || str_is_equal(argv[1], "--register")) {
+  if (is_command(argv[1], "-r", "--register")) {
     register_current_time();
   }
 }

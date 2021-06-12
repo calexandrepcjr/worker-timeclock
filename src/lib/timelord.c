@@ -1,22 +1,31 @@
 #include "timelord.h"
 
-static char* get_time(char* format, int expected_size) {
+static struct tm *get_time() {
     time_t current_time = time(NULL);
 
     if (current_time != (time_t)(-1)) {
-        struct tm tm = *localtime(&current_time);
-        char *current_time_structure = create_string(expected_size);
+        return localtime(&current_time);
+    }
 
-        switch (expected_size) {
-            case 11:
-                // It's a year
-                snprintf(current_time_structure, expected_size, format, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
-            break;
+    return NULL;
+}
 
-            default:
-                snprintf(current_time_structure, expected_size, format, tm.tm_hour, tm.tm_min, tm.tm_sec);
-            break;
-        }
+char* current_date() {
+    struct tm *time = get_time();
+    int expected_size = 11;
+    char *current_time_structure = create_string(expected_size);
+
+    if (time != NULL) {
+        snprintf(
+                current_time_structure,
+                expected_size,
+                "%04d-%02d-%02d",
+                time->tm_year + 1900,
+                time->tm_mon + 1,
+                time->tm_mday
+            );
+
+        free(time);
 
         return current_time_structure;
     }
@@ -24,11 +33,26 @@ static char* get_time(char* format, int expected_size) {
     return "-1";
 }
 
-char* current_date() {
-    return get_time("%04d-%02d-%02d", 11);
-}
-
 char* current_hours() {
-    return get_time("%02d:%02d:%02d", 9);
+    struct tm *time = get_time();
+    int expected_size = 9;
+    char *current_time_structure = create_string(expected_size);
+
+    if (time != NULL) {
+        snprintf(
+                current_time_structure,
+                expected_size,
+                "%02d:%02d:%02d",
+                time->tm_hour,
+                time->tm_min,
+                time->tm_sec
+        );
+
+        free(time);
+
+        return current_time_structure;
+    }
+
+    return "-1";
 }
 
