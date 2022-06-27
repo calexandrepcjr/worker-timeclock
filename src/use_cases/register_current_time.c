@@ -4,7 +4,7 @@
 void register_current_time() {
    FILE * file_pointer = fopen(current_date(), "a");
 
-   fprintf (file_pointer, "%s", current_hours());
+   fprintf(file_pointer, "%s\n", current_hours());
  
-   fclose (file_pointer);
+   fclose(file_pointer);
 }

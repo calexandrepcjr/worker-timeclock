@@ -25,8 +25,6 @@ char* current_date() {
                 time->tm_mday
             );
 
-        free(time);
-
         return current_time_structure;
     }
 
@@ -47,8 +45,6 @@ char* current_hours() {
                 time->tm_min,
                 time->tm_sec
         );
-
-        free(time);
 
         return current_time_structure;
     }
