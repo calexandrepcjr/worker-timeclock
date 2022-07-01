@@ -12,5 +12,8 @@ USECASES_FILES ?= $(wildcard $(USECASES_DIR)/*.c)
 all:
 	$(CC) $(CFLAGS) $(LIB_FILES) $(USECASES_FILES) $(SRC_FILES) -o $(PROJECT_BIN_DIR)/timeclock
 
+debug: CFLAGS += -DDEBUG -g
+debug: all
+
 clean:
 	$(RM) $(PROJECT_BIN_DIR)/*
