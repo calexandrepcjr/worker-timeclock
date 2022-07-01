@@ -2,9 +2,9 @@
 
 
 void register_current_time() {
-   FILE * file_pointer = fopen(current_date(), "a");
+   FILE * file = fopen(current_date(), "a");
 
-   fprintf(file_pointer, "%s\n", current_hours());
+   fprintf(file, "%s\n", current_hours());
  
-   fclose(file_pointer);
+   fclose(file);
 }
