@@ -15,20 +15,37 @@ int show_today_balance() {
 
    FILE * file = fopen(filename, "r");
    unsigned int line_count = 0;
-   TimeInfo time_info;
+   TimeInfo time_infos[2];
+   TimePeriod period;
+   int reminder = 0;
 
    while (fgets(line, MAX_LINE_LENGTH, file))
    {
-      time_info = new_time_info(line);
+      reminder = line_count % 2;
+      time_infos[reminder] = new_time_info(line);
 
       printf(
-         "presence[%03d]: %s | hours: %02d | minutes: %02d | total hours: %.2f | total_minutes: %.2f",
+         "presence[%03d]: %s | hours: %02d | minutes: %02d | total hours: %.2f | total_minutes: %.2f\n",
          ++line_count,
-         time_info.raw_info,
-         time_info.hours,
-         time_info.minutes,
-         time_info.total_hours,
-         time_info.total_minutes
+         time_infos[reminder].raw_info,
+         time_infos[reminder].hours,
+         time_infos[reminder].minutes,
+         time_infos[reminder].total_hours,
+         time_infos[reminder].total_minutes
+      );
+
+      if (line_count == 0 || reminder != 1) {
+         continue;
+      }
+
+      period = new_time_period(time_infos[0], time_infos[1]);
+
+      printf(
+         "balance: %s/%s | hours: %.2f | minutes: %.2f\n",
+         period.begin.raw_info,
+         period.end.raw_info,
+         period.total_hours,
+         period.total_minutes
       );
    }
 

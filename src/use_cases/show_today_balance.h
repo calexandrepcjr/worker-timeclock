@@ -6,6 +6,7 @@
     #include <stdio.h>
     #include "../lib/timelord.h"
     #include "../lib/time_info.h"
+    #include "../lib/time_period.h"
     #include "../lib/file.h"
 
     int show_today_balance();
