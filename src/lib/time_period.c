@@ -12,3 +12,13 @@ TimePeriod new_time_period(TimeInfo begin, TimeInfo end) {
     return period;
 }
 
+char* time_period_to_string(TimePeriod period) {
+    return new_string_from_format(
+        "balance: %s/%s | hours: %.2f | minutes: %.2f\n",
+        period.begin.raw_info,
+        period.end.raw_info,
+        period.total_hours,
+        period.total_minutes
+    );
+}
+

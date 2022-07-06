@@ -7,6 +7,7 @@
     #include <stdint.h>
     #include <stdlib.h>
     #include "time_info.h"
+    #include "string.h"
 
     typedef struct TimePeriod {
         TimeInfo begin;
@@ -17,4 +18,6 @@
     } TimePeriod;
 
     TimePeriod new_time_period(TimeInfo begin, TimeInfo end);
+
+    char* time_period_to_string(TimePeriod period);
 #endif /* TIME_PERIOD_DOT_H */

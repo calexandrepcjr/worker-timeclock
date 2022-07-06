@@ -3,9 +3,9 @@
 TimeInfo new_time_info(char *time) {
     TimeInfo time_info;
     int time_length = str_length_humanized(time);
-    char *buffer = create_string(3);
+    char *buffer = new_string(3);
 
-    time_info.raw_info = create_string(9);
+    time_info.raw_info = new_string(9);
     strcpy(time_info.raw_info, time);
 
     if (time_length != 8) {

@@ -17,6 +17,7 @@ int show_today_balance() {
    unsigned int line_count = 0;
    TimeInfo time_infos[2];
    TimePeriod period;
+   char *period_presentation;
    int reminder = 0;
 
    while (fgets(line, MAX_LINE_LENGTH, file))
@@ -39,14 +40,14 @@ int show_today_balance() {
       }
 
       period = new_time_period(time_infos[0], time_infos[1]);
+      period_presentation = time_period_to_string(period);
 
       printf(
-         "balance: %s/%s | hours: %.2f | minutes: %.2f\n",
-         period.begin.raw_info,
-         period.end.raw_info,
-         period.total_hours,
-         period.total_minutes
+         "balance: %s\n",
+         period_presentation
       );
+
+      free(period_presentation);
    }
 
    fclose(file);

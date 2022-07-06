@@ -13,7 +13,7 @@ static struct tm *get_time() {
 char* current_date() {
     struct tm *time = get_time();
     int expected_size = 11;
-    char *current_time_structure = create_string(expected_size);
+    char *current_time_structure = new_string(expected_size);
 
     if (time != NULL) {
         snprintf(
@@ -34,7 +34,7 @@ char* current_date() {
 char* current_hours() {
     struct tm *time = get_time();
     int expected_size = 9;
-    char *current_time_structure = create_string(expected_size);
+    char *current_time_structure = new_string(expected_size);
 
     if (time != NULL) {
         snprintf(
