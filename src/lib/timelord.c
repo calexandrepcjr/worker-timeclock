@@ -15,20 +15,26 @@ char* current_date() {
     int expected_size = 11;
     char *current_time_structure = new_string(expected_size);
 
-    if (time != NULL) {
-        snprintf(
-                current_time_structure,
-                expected_size,
-                "%04d-%02d-%02d",
-                time->tm_year + 1900,
-                time->tm_mon + 1,
-                time->tm_mday
-            );
-
-        return current_time_structure;
+    if (time == NULL || current_time_structure == NULL) {
+        return "0000-00-00";
     }
 
-    return "-1";
+    int chars_written = snprintf(
+        current_time_structure,
+        expected_size + 1,
+        "%04d-%02d-%02d",
+        time->tm_year + 1900,
+        time->tm_mon + 1,
+        time->tm_mday
+    );
+
+    if (chars_written < 0 || chars_written >= expected_size) {
+        free(current_time_structure);
+
+        return "0000-00-00";
+    }
+
+    return current_time_structure;
 }
 
 char* current_hours() {
